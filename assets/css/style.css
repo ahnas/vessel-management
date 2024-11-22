@@ -1,0 +1,79 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f6f8fe;
+    color: #2B3674;
+    font-family: 'Inter', sans-serif;
+}
+.dashboard-heading{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 15px 0;
+}
+
+.dashboard-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2B3674;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 15px;
+}
+
+.dashboard-title icon {
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    background: #3870FF;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-title button {
+    padding: 8px 15px;
+    border-radius: 3px;
+    border: none;
+    background: #F1F5FF;
+    color: #3870FF;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.legend-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #818DB4;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+.legend-square {
+    width: 5px;
+    height: 15px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.legend-value {
+    color: #2B3674;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-top: 5px;
+
+}
