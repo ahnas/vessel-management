@@ -14,9 +14,9 @@
     <div class="container m-3">
         <h2 class="dashboard-heading">Dashboard</h2>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card">
-                    <div class="dashboard-title">
+                    <div class="dashboard-title d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <icon>i</icon>
                             <div class="ms-2">Vessel Overview</div>
@@ -29,47 +29,100 @@
                     <div class="legend-container d-flex mb-3"></div>
                 </div>
             </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="dashboard-title d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <icon>i</icon>
+                            <div class="ms-2">Crew Overview</div>
+                        </div>
+                        <button>VIEW DETAILS</button>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <canvas id="vesselChartCrew"></canvas>
+                    </div>
+                    <div class="legend-container-crew d-flex mb-3"></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="dashboard-title d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <icon>i</icon>
+                            <div class="ms-2">Cargo Status</div>
+                        </div>
+                        <button>VIEW DETAILS</button>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <canvas id="vesselChartCargo"></canvas>
+                    </div>
+                    <div class="legend-container-cargo d-flex mb-3"></div>
+                </div>
+            </div>
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         window.onload = function () {
-            const ctx = document.getElementById('vesselChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
+            const chartsData = [
+                {
+                    elementId: 'vesselChart',
                     labels: ['TOTAL VESSELS', 'ACTIVE', 'DOCKED', 'IN TRANSIT'],
-                    datasets: [{
-                        data: [50, 30, 15, 5],
-                        backgroundColor: ['#003366', '#2BA9A9', '#FFA726', '#1E88E5'],
-                        borderColor: ['#fff', '#fff', '#fff', '#fff'],
-                        borderWidth: 1
-                    }]
+                    data: [50, 30, 15, 5],
+                    backgroundColors: ['#003366', '#2BA9A9', '#FFA726', '#1E88E5'],
+                    legendContainer: '.legend-container'
                 },
-                options: {
-                    responsive: false,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
+                {
+                    elementId: 'vesselChartCrew',
+                    labels: ['TOTAL', 'ON BOARD', 'ON LEAVE', 'IN TRAINING'],
+                    data: [120, 80, 30, 10],
+                    backgroundColors: ['#003366', '#2BA9A9', '#FFA726', '#1E88E5'],
+                    legendContainer: '.legend-container-crew'
+                },
+                {
+                    elementId: 'vesselChartCargo',
+                    labels: ['TOTAL', 'DELIVERED', 'PENDING', 'IN TRANSIT'],
+                    data: [200, 150, 40, 10],
+                    backgroundColors: ['#003366', '#2BA9A9', '#FFA726', '#1E88E5'],
+                    legendContainer: '.legend-container-cargo'
+                }
+            ];
+
+            chartsData.forEach(chartInfo => {
+                const ctx = document.getElementById(chartInfo.elementId).getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: chartInfo.labels,
+                        datasets: [{
+                            data: chartInfo.data,
+                            backgroundColor: chartInfo.backgroundColors,
+                            borderColor: ['#fff', '#fff', '#fff', '#fff'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
                         }
                     }
-                }
-            });
+                });
 
-            const legendContainer = document.querySelector('.legend-container');
-            myChart.data.labels.forEach((label, index) => {
-                const legendItem = document.createElement('div');
-                legendItem.classList.add('legend-item');
-                legendItem.innerHTML = `
-                    <div class="d-flex">
-                    <span class="legend-square" style="background-color:${myChart.data.datasets[0].backgroundColor[index]}"></span>
-                    ${label} 
-                    </div>
-                    <span class="legend-value">${myChart.data.datasets[0].data[index]}</span>`;
-                legendContainer.appendChild(legendItem);
+                const legendContainer = document.querySelector(chartInfo.legendContainer);
+                chartInfo.labels.forEach((label, index) => {
+                    const legendItem = document.createElement('div');
+                    legendItem.classList.add('legend-item');
+                    legendItem.innerHTML = `
+                        <div class="d-flex">
+                            <span class="legend-square" style="background-color:${chartInfo.backgroundColors[index]}"></span>
+                            ${label} 
+                        </div>
+                        <span class="legend-value">${myChart.data.datasets[0].data[index]}</span>`;
+                    legendContainer.appendChild(legendItem);
+                });
             });
         };
     </script>

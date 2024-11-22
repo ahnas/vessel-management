@@ -5,7 +5,8 @@ body {
     color: #2B3674;
     font-family: 'Inter', sans-serif;
 }
-.dashboard-heading{
+
+.dashboard-heading {
     font-size: 20px;
     font-weight: 600;
     padding: 15px 0;
@@ -43,7 +44,9 @@ body {
     font-size: 12px;
 }
 
-.legend-container {
+.legend-container,
+.legend-container-crew,
+.legend-container-cargo {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -75,5 +78,10 @@ body {
     font-weight: 700;
     margin-left: 10px;
     margin-top: 5px;
+}
 
+.card {
+    border: none;
+    box-shadow: 0px 0px 48px -8px #274C7738;
+    margin-bottom: 20px;
 }
