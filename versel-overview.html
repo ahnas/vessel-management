@@ -43,39 +43,28 @@
     </div>
 
     <div class="container-fluid custom-padding div-shadow">
-        <table class="table table-container">
-
-            <div class="custom-padding-tbh d-flex justify-content-between table-responsive">
-                <div class="d-flex table-rounded table-responsive" style="background: #F1F5FF;">
-                    <button class="table-btn table-rounded">ALL</button>
-                    <button class="table-btns">ACTIVE</button>
-                    <button class="table-btns">DOCKED</button>
-                    <button class="table-btns">IN TRANSIT</button>
-                    <button class="table-btns rounded-end">IDLE</button>
-                </div>
-                <div class="position-relative d-flex">
-                    <i class='bx bx-search-alt search-icon position-absolute'></i>
-                    <input class="search" type="text" placeholder="Find vessels by name or ID"
-                        style="width: 350px; margin-right: 10px;">
-                    <i class='bx bx-filter-alt fitter-icon d-flex align-items-center'></i>
-                </div>
+        <div class="custom-padding-tbh d-flex justify-content-between table-responsive">
+            <div class="d-flex table-rounded" style="background: #F1F5FF;">
+                <button class="table-btn table-rounded">ALL</button>
+                <button class="table-btns">ACTIVE</button>
+                <button class="table-btns">DOCKED</button>
+                <button class="table-btns">IN TRANSIT</button>
+                <button class="table-btns rounded-end">IDLE</button>
             </div>
+            <div class="position-relative d-flex">
+                <i class='bx bx-search-alt search-icon position-absolute'></i>
+                <input class="search" type="text" placeholder="Find vessels by name or ID"
+                    style="width: 350px; margin-right: 10px;">
+                <i class='bx bx-filter-alt fitter-icon d-flex align-items-center'></i>
+            </div>
+        </div>
 
+        <table class="table table-container">
             <tr class="space-blank">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td colspan="11"></td>
             </tr>
             <tr class="table-header">
-                <th class="checke"> <input type="checkbox"> </th>
+                <th class="checke"><input type="checkbox"></th>
                 <th>Vessel Name</th>
                 <th>Vessel ID</th>
                 <th>Status</th>
@@ -87,84 +76,10 @@
                 <th>Captain Name</th>
                 <th></th>
             </tr>
-
-
-            <tr>
-                <td class="checke">
-                    <input type="checkbox">
-                </td>
-                <td>Atlantic Voyager</td>
-                <td>1234567</td>
-                <td class="status">
-                    <button>IN TRANSIT</button>
-                </td>
-                <td>New York, USA</td>
-                <td>21 Nov, 9:00 AM</td>
-                <td>Liverpool, UK</td>
-                <td>24 Nov, 12:30 PM</td>
-                <td>Atlantic Ocean</td>
-                <td>
-                    <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="vessel-logo">
-                    John Smith
-                </td>
-                <td>
-                    <i class='bx bx-dots-vertical-rounded dots'></i>
-                </td>
-            </tr>
-            <tr>
-                <td class="checke"> <input type="checkbox"> </td>
-                <td>Atlantic Voyager</td>
-                <td>1234567</td>
-                <td class="status docked"> <button>DOCKED</button> </td>
-                <td>New York, USA</td>
-                <td>21 Nov, 9:00 AM</td>
-                <td>Liverpool, UK</td>
-                <td>24 Nov, 12:30 PM</td>
-                <td>Atlantic Ocean</td>
-                <td>
-                    <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="versel-logo">
-                    John Smithlll
-                </td>
-                <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
-            </tr>
-            <tr>
-                <td class="checke"> <input type="checkbox"> </td>
-                <td>Atlantic Voyager</td>
-                <td>1234567</td>
-                <td class="status idle"> <button>IDLE</button> </td>
-                <td>New York, USA</td>
-                <td>21 Nov, 9:00 AM</td>
-                <td>Liverpool, UK</td>
-                <td>24 Nov, 12:30 PM</td>
-                <td>Atlantic Ocean</td>
-                <td>
-                    <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="versel-logo">
-                    John Smithlll
-                </td>
-                <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
-
-            </tr>
-            <tr>
-                <td class="checke"> <input type="checkbox"> </td>
-                <td>Atlantic Voyager</td>
-                <td>1234567</td>
-                <td class="status active"> <button>ACTIVE</button> </td>
-                <td>New York, USA</td>
-                <td>21 Nov, 9:00 AM</td>
-                <td>Liverpool, UK</td>
-                <td>24 Nov, 12:30 PM</td>
-                <td>Atlantic Ocean</td>
-                <td>
-                    <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="versel-logo">
-                    John Smithlll
-                </td>
-                <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
-
-            </tr>
-
+            <tbody id="vessel-table-body"></tbody>
         </table>
-        <div class="data-push">
-        </div>
+
+        <div class="data-push"></div>
         <div class="pagination d-flex justify-content-between">
             <p class="pagination-text">Showing 1 to 5 of 57 entries</p>
             <div class="next-prev d-flex gap-2 align-items-center">
@@ -176,6 +91,85 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const vessels = [
+            {
+                name: 'Atlantic Voyager',
+                id: '1234567',
+                status: 'IN TRANSIT',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: ''
+            },
+            {
+                name: 'Atlantic Voyager',
+                id: '1234567',
+                status: 'DOCKED',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'docked'
+            },
+            {
+                name: 'Atlantic Voyager',
+                id: '1234567',
+                status: 'IDLE',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'idle'
+            },
+            {
+                name: 'Atlantic Voyager',
+                id: '1234567',
+                status: 'ACTIVE',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'active'
+            }
+        ];
+
+        function populateVesselTable(data) {
+            const tableBody = document.getElementById('vessel-table-body');
+            data.forEach(vessel => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="checke"><input type="checkbox"></td>
+                    <td>${vessel.name}</td>
+                    <td>${vessel.id}</td>
+                    <td class="status ${vessel.class}"><button>${vessel.status}</button></td>
+                    <td>${vessel.departurePort}</td>
+                    <td>${vessel.departureDate}</td>
+                    <td>${vessel.arrivalPort}</td>
+                    <td>${vessel.eta}</td>
+                    <td>${vessel.location}</td>
+                    <td><img class="rounded-circle me-1" src="${vessel.avatar}" width="28" alt="vessel-logo"> ${vessel.captain}</td>
+                    <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        populateVesselTable(vessels);
+    </script>
 
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>

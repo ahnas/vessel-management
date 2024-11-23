@@ -287,6 +287,10 @@ input[type="checkbox"] {
     margin-top: 4px;
 }
 
+.checke input:checked {
+    background-color: #3870FF;
+}
+
 .checke {
     text-align: center;
 }
