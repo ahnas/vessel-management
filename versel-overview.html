@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vessel Overview</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href='https://unpkg.com/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
+
+
+</head>
+
+<body>
+    <div class="container-fluid bg-white d-flex justify-content-between align-items-center custom-padding div-shadow">
+        <div class="search-container">
+            <i class='bx bx-search-alt search-icon'></i>
+            <input class="search" type="text" placeholder="Search for vessels, crew, or cargo..." id="search-input">
+        </div>
+
+        <div class="user-container pe-2 ">
+            <div class="position-relative">
+                <i class='bx bx-bell'></i>
+                <span class="notification-dot position-absolute"></span>
+            </div>
+            <img class="rounded-circle img-avatar" src="assets/img/avatar.jpg" width="36" alt="vessel-logo">
+            Eddard Stark
+            <i class='bx bx-chevron-down'></i>
+        </div>
+    </div>
+
+    <div class="container-fluid custom-padding sub-header d-flex justify-content-between">
+        <div>
+            <div class="dashboard-heading">Vessel Overview</div>
+            <p>Dashboard / Vessel Management / <span> Vessel Overview</span></p>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <button class="download-btn"> <i class="bx bx-download "></i> <span> DOWNLOAD</span></button>
+            <button class="download-btn add-vessel"> <i class="bx bx-plus"></i> ADD VESSEL</button>
+        </div>
+        
+    </div>
+
+    <div class="container-fluid custom-padding div-shadow">
+        <div class="custom-padding-tbh d-flex justify-content-between table-responsive">
+            <div class="d-flex table-rounded" style="background: #F1F5FF;">
+                <button class="table-btns table-rounded active-btn" data-status="all">ALL</button>
+                <button class="table-btns" data-status="ACTIVE">ACTIVE</button>
+                <button class="table-btns" data-status="DOCKED">DOCKED</button>
+                <button class="table-btns" data-status="IN TRANSIT">IN TRANSIT</button>
+                <button class="table-btns rounded-end" data-status="IDLE">IDLE</button>
+            </div>
+            <div class="position-relative d-flex">
+                <i class='bx bx-search-alt search-icon position-absolute'></i>
+                <input class="search" type="text" placeholder="Find vessels by name or ID" id="search-filter"
+                    style="width: 350px; margin-right: 10px;">
+                <i class='bx bx-filter-alt fitter-icon d-flex align-items-center'></i>
+            </div>
+        </div>
+
+        <table class="table table-container">
+            <tr class="space-blank">
+                <td colspan="11"></td>
+            </tr>
+            <tr class="table-header">
+                <th class="checke"><input type="checkbox"></th>
+                <th>Vessel Name</th>
+                <th>Vessel ID</th>
+                <th>Status</th>
+                <th>Port of Departure</th>
+                <th>Departure Date</th>
+                <th>Port of Arrival</th>
+                <th>ETA</th>
+                <th>Current Location</th>
+                <th>Captain Name</th>
+                <th></th>
+            </tr>
+            <tbody id="vessel-table-body"></tbody>
+        </table>
+
+        <div class="data-push"></div>
+        <div class="pagination d-flex justify-content-between">
+            <p class="pagination-text">Showing 1 to 5 of 57 entries</p>
+            <div class="next-prev d-flex gap-2 align-items-center">
+                <i class='bx bx-chevron-left d-flex align-items-center' id="prev-page"></i>
+                <div id="page-numbers" class="d-flex gap-2"></div>
+                <i class='bx bx-chevron-right d-flex align-items-center' id="next-page"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const vessels = [
+
+            {
+                name: 'Atlantic Voyager',
+                id: '1234567',
+                status: 'IN TRANSIT',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: ''
+            },
+            {
+                name: 'Pacific Explorer',
+                id: '2345678',
+                status: 'DOCKED',
+                departurePort: 'San Francisco, USA',
+                departureDate: '20 Nov, 10:00 AM',
+                arrivalPort: 'Tokyo, Japan',
+                eta: '28 Nov, 3:00 PM',
+                location: 'Pacific Ocean',
+                captain: 'Jane Doe',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'docked'
+            },
+            {
+                name: 'Southern Star',
+                id: '3456789',
+                status: 'IDLE',
+                departurePort: 'Miami, USA',
+                departureDate: '19 Nov, 8:00 AM',
+                arrivalPort: 'Havana, Cuba',
+                eta: '22 Nov, 1:00 PM',
+                location: 'Caribbean Sea',
+                captain: 'James Bond',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'idle'
+            },
+            {
+                name: 'Northern Light',
+                id: '84567890',
+                status: 'ACTIVE',
+                departurePort: 'London, UK',
+                departureDate: '18 Nov, 7:00 AM',
+                arrivalPort: 'Newcastle, UK',
+                eta: '21 Nov, 5:00 PM',
+                location: 'North Sea',
+                captain: 'Anna Taylor',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'active'
+            },
+
+            {
+                name: 'Atlantic Voyager',
+                id: '81234567',
+                status: 'IN TRANSIT',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: ''
+            },
+            {
+                name: 'Pacific Explorer',
+                id: '23845678',
+                status: 'DOCKED',
+                departurePort: 'San Francisco, USA',
+                departureDate: '20 Nov, 10:00 AM',
+                arrivalPort: 'Tokyo, Japan',
+                eta: '28 Nov, 3:00 PM',
+                location: 'Pacific Ocean',
+                captain: 'Jane Doe',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'docked'
+            },
+            {
+                name: 'Southern Star',
+                id: '34856789',
+                status: 'IDLE',
+                departurePort: 'Miami, USA',
+                departureDate: '19 Nov, 8:00 AM',
+                arrivalPort: 'Havana, Cuba',
+                eta: '22 Nov, 1:00 PM',
+                location: 'Caribbean Sea',
+                captain: 'James Bond',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'idle'
+            },
+            {
+                name: 'Northern Light',
+                id: '45867890',
+                status: 'ACTIVE',
+                departurePort: 'London, UK',
+                departureDate: '18 Nov, 7:00 AM',
+                arrivalPort: 'Newcastle, UK',
+                eta: '21 Nov, 5:00 PM',
+                location: 'North Sea',
+                captain: 'Anna Taylor',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'active'
+            },
+
+            {
+                name: 'Atlantic Voyager',
+                id: '81234567',
+                status: 'IN TRANSIT',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: ''
+            },
+            {
+                name: 'Pacific Explorer',
+                id: '23845678',
+                status: 'DOCKED',
+                departurePort: 'San Francisco, USA',
+                departureDate: '20 Nov, 10:00 AM',
+                arrivalPort: 'Tokyo, Japan',
+                eta: '28 Nov, 3:00 PM',
+                location: 'Pacific Ocean',
+                captain: 'Jane Doe',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'docked'
+            },
+            {
+                name: 'Southern Star',
+                id: '34856789',
+                status: 'IDLE',
+                departurePort: 'Miami, USA',
+                departureDate: '19 Nov, 8:00 AM',
+                arrivalPort: 'Havana, Cuba',
+                eta: '22 Nov, 1:00 PM',
+                location: 'Caribbean Sea',
+                captain: 'James Bond',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'idle'
+            },
+            {
+                name: 'Northern Light',
+                id: '45867890',
+                status: 'ACTIVE',
+                departurePort: 'London, UK',
+                departureDate: '18 Nov, 7:00 AM',
+                arrivalPort: 'Newcastle, UK',
+                eta: '21 Nov, 5:00 PM',
+                location: 'North Sea',
+                captain: 'Anna Taylor',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'active'
+            },
+            {
+                name: 'Atlantic Voyager',
+                id: '81234567',
+                status: 'IN TRANSIT',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: ''
+            },
+            {
+                name: 'Pacific Explorer',
+                id: '23845678',
+                status: 'DOCKED',
+                departurePort: 'San Francisco, USA',
+                departureDate: '20 Nov, 10:00 AM',
+                arrivalPort: 'Tokyo, Japan',
+                eta: '28 Nov, 3:00 PM',
+                location: 'Pacific Ocean',
+                captain: 'Jane Doe',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'docked'
+            },
+            {
+                name: 'Southern Star',
+                id: '34856789',
+                status: 'IDLE',
+                departurePort: 'Miami, USA',
+                departureDate: '19 Nov, 8:00 AM',
+                arrivalPort: 'Havana, Cuba',
+                eta: '22 Nov, 1:00 PM',
+                location: 'Caribbean Sea',
+                captain: 'James Bond',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'idle'
+            },
+            {
+                name: 'Northern Light',
+                id: '45867890',
+                status: 'ACTIVE',
+                departurePort: 'London, UK',
+                departureDate: '18 Nov, 7:00 AM',
+                arrivalPort: 'Newcastle, UK',
+                eta: '21 Nov, 5:00 PM',
+                location: 'North Sea',
+                captain: 'Anna Taylor',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'active'
+            },
+
+            {
+                name: 'Atlantic Voyager',
+                id: '81234567',
+                status: 'IN TRANSIT',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: ''
+            },
+            {
+                name: 'Pacific Explorer',
+                id: '23845678',
+                status: 'DOCKED',
+                departurePort: 'San Francisco, USA',
+                departureDate: '20 Nov, 10:00 AM',
+                arrivalPort: 'Tokyo, Japan',
+                eta: '28 Nov, 3:00 PM',
+                location: 'Pacific Ocean',
+                captain: 'Jane Doe',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'docked'
+            },
+            {
+                name: 'Southern Star',
+                id: '34856789',
+                status: 'IDLE',
+                departurePort: 'Miami, USA',
+                departureDate: '19 Nov, 8:00 AM',
+                arrivalPort: 'Havana, Cuba',
+                eta: '22 Nov, 1:00 PM',
+                location: 'Caribbean Sea',
+                captain: 'James Bond',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'idle'
+            }
+
+        ];
+
+
+
+
+        let currentPage = 1;
+        const vesselsPerPage = 5;
+        let filteredVessels = vessels;  
+
+        function updatePaginationText(startIndex, endIndex, totalVessels) {
+            const paginationText = document.querySelector('.pagination-text');
+            paginationText.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalVessels} entries`;
+        }
+
+
+        function populateVesselTable(data) {
+            const tableBody = document.getElementById('vessel-table-body');
+            tableBody.innerHTML = '';
+
+            const totalPages = Math.ceil(data.length / vesselsPerPage);
+            const startIndex = (currentPage - 1) * vesselsPerPage;
+            const endIndex = Math.min(startIndex + vesselsPerPage, data.length);
+            const vesselsToDisplay = data.slice(startIndex, endIndex);
+
+            vesselsToDisplay.forEach(vessel => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td class="checke"><input type="checkbox"></td>
+                <td>${vessel.name}</td>
+                <td>${vessel.id}</td>
+                <td class="status ${vessel.class}"><button>${vessel.status}</button></td>
+                <td>${vessel.departurePort}</td>
+                <td>${vessel.departureDate}</td>
+                <td>${vessel.arrivalPort}</td>
+                <td>${vessel.eta}</td>
+                <td>${vessel.location}</td>
+                <td><img class="rounded-circle me-1" src="${vessel.avatar}" width="28" alt="vessel-logo"> ${vessel.captain}</td>
+                <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
+            `;
+                tableBody.appendChild(row);
+            });
+
+            updatePagination(totalPages);
+            updatePaginationText(startIndex, endIndex, data.length);
+        }
+
+
+        function updatePagination(totalPages) {
+            const pageNumbersContainer = document.getElementById('page-numbers');
+            pageNumbersContainer.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.innerText = i;
+                button.className = (i === currentPage) ? 'active-next' : '';
+                button.onclick = () => {
+                    currentPage = i;
+                    populateVesselTable(filteredVessels); 
+                };
+                pageNumbersContainer.appendChild(button);
+            }
+
+            document.getElementById('prev-page').onclick = () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    populateVesselTable(filteredVessels);  
+                }
+            };
+
+            document.getElementById('next-page').onclick = () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    populateVesselTable(filteredVessels);  
+                }
+            };
+        }
+
+        // Search Functionality
+        const searchInput = document.getElementById('search-filter');
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+            filteredVessels = vessels.filter(vessel =>
+                vessel.name.toLowerCase().includes(searchTerm) || vessel.id.includes(searchTerm)
+            );
+            currentPage = 1; 
+            populateVesselTable(filteredVessels);
+        });
+
+        // Status Filter Functionality
+        const statusButtons = document.querySelectorAll('.table-btn, .table-btns');
+        statusButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                statusButtons.forEach(btn => btn.classList.remove('active-btn'));
+                this.classList.add('active-btn');
+                const status = this.getAttribute('data-status');
+                if (status === 'all') {
+                    filteredVessels = vessels;
+                } else {
+                    filteredVessels = vessels.filter(vessel => vessel.status === status);
+                }
+
+                const searchTerm = searchInput.value.toLowerCase();
+                filteredVessels = filteredVessels.filter(vessel =>
+                    vessel.name.toLowerCase().includes(searchTerm) || vessel.id.includes(searchTerm)
+                );
+
+                currentPage = 1;  
+                populateVesselTable(filteredVessels);
+            });
+        });
+
+        populateVesselTable(vessels);
+
+    </script>
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+</body>
+
+</html>

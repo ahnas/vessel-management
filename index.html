@@ -5,13 +5,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vessel Management</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href='https://unpkg.com/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
+
 
 </head>
 
 <body>
- <h1>Page Loaded<>
+
+    <div class="container-fluid custom-padding">
+        <div class="dashboard-heading">Dashboard</div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="dashboard-title d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <i class='bx bxs-ship'></i>
+
+                            <div class="ms-2">Vessel Overview</div>
+                        </div>
+                        <button>VIEW DETAILS</button>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <canvas id="vesselChart"></canvas>
+                    </div>
+                    <div class="legend-container d-flex mb-3"></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="dashboard-title d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <i class='bx bx-group'></i>
+                            <div class="ms-2">Crew Overview</div>
+                        </div>
+                        <button>VIEW DETAILS</button>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <canvas id="vesselChartCrew"></canvas>
+                    </div>
+                    <div class="legend-container-crew d-flex mb-3"></div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="dashboard-title d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <i class='bx bx-box'></i>
+                            <div class="ms-2">Cargo Status</div>
+                        </div>
+                        <button>VIEW DETAILS</button>
+                    </div>
+                    <div class="card-body d-flex justify-content-center">
+                        <canvas id="vesselChartCargo"></canvas>
+                    </div>
+                    <div class="legend-container-cargo d-flex mb-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.onload = function () {
+            const chartsData = [
+                {
+                    elementId: 'vesselChart',
+                    labels: ['TOTAL VESSELS', 'ACTIVE', 'DOCKED', 'IN TRANSIT'],
+                    data: [50, 30, 15, 5],
+                    backgroundColors: ['#003366', '#2BA9A9', '#FFA726', '#1E88E5'],
+                    legendContainer: '.legend-container'
+                },
+                {
+                    elementId: 'vesselChartCrew',
+                    labels: ['TOTAL', 'ON BOARD', 'ON LEAVE', 'IN TRAINING'],
+                    data: [120, 80, 30, 10],
+                    backgroundColors: ['#003366', '#2BA9A9', '#FFA726', '#1E88E5'],
+                    legendContainer: '.legend-container-crew'
+                },
+                {
+                    elementId: 'vesselChartCargo',
+                    labels: ['TOTAL', 'DELIVERED', 'PENDING', 'IN TRANSIT'],
+                    data: [200, 150, 40, 10],
+                    backgroundColors: ['#003366', '#2BA9A9', '#FFA726', '#1E88E5'],
+                    legendContainer: '.legend-container-cargo'
+                }
+            ];
+
+            chartsData.forEach(chartInfo => {
+                const ctx = document.getElementById(chartInfo.elementId).getContext('2d');
+                const myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: chartInfo.labels,
+                        datasets: [{
+                            data: chartInfo.data,
+                            backgroundColor: chartInfo.backgroundColors,
+                            borderColor: ['#fff', '#fff', '#fff', '#fff'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+
+                const legendContainer = document.querySelector(chartInfo.legendContainer);
+                chartInfo.labels.forEach((label, index) => {
+                    const legendItem = document.createElement('div');
+                    legendItem.classList.add('legend-item');
+                    legendItem.innerHTML = `
+                        <div class="d-flex">
+                            <span class="legend-square" style="background-color:${chartInfo.backgroundColors[index]}"></span>
+                            ${label} 
+                        </div>
+                        <span class="legend-value">${myChart.data.datasets[0].data[index]}</span>`;
+                    legendContainer.appendChild(legendItem);
+                });
+            });
+        };
+    </script>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
