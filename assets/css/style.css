@@ -345,6 +345,7 @@ input[type="checkbox"] {
     border-radius: 5px;
     padding: 7px;
     border: none;
+    cursor: pointer;
 }
 
 .next-prev button {
@@ -356,7 +357,14 @@ input[type="checkbox"] {
     width: 30px;
     height: 30px;
     border: none;
+    cursor: pointer;
 }
+
+.next-prev button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
 
 .active-next {
     background: #3870FF !important;
