@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vessel Overview</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href='https://unpkg.com/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="container-fluid bg-white d-flex justify-content-between align-items-center custom-padding div-shadow">
+        <div class="search-container">
+            <i class='bx bx-search-alt search-icon'></i>
+            <input class="search" type="text" placeholder="Search for vessels, crew, or cargo...">
+        </div>
+
+        <div class="user-container pe-2 ">
+            <div class=" position-relative">
+                <i class='bx bx-bell'></i>
+                <span class="notification-dot position-absolute"></span>
+            </div>
+            <img class="rounded-circle img-avatar" src="assets/img/avatar.jpg" width="36" alt="versel-logo">
+            Eddard Stark
+            <i class='bx bx-chevron-down'></i>
+        </div>
+    </div>
+
+    <div class="container-fluid custom-padding sub-header d-flex justify-content-between">
+        <div>
+            <div class="dashboard-heading">Vessel Overview</div>
+            <p>Dashboard / Vessel Management / <span> Vessel Overview</span></p>
+        </div>
+
+        <div class="d-flex custom-padding-tb">
+            <button class="download-btn"> <i class="bx bx-download "></i> <span> DOWNLOAD</span></button>
+            <button class="download-btn add-vessel"> <i class="bx bx-plus"></i> ADD VESSEL</button>
+        </div>
+    </div>
+
+    <div class="container-fluid custom-padding div-shadow">
+        <table class="table table-container">
+
+            <div class="custom-padding-tbh d-flex justify-content-between table-responsive">
+                <div class="d-flex table-rounded table-responsive" style="background: #F1F5FF;">
+                    <button class="table-btn table-rounded">ALL</button>
+                    <button class="table-btns">ACTIVE</button>
+                    <button class="table-btns">DOCKED</button>
+                    <button class="table-btns">IN TRANSIT</button>
+                    <button class="table-btns rounded-end">IDLE</button>
+                </div>
+                <div class="position-relative d-flex">
+                    <i class='bx bx-search-alt search-icon position-absolute'></i>
+                    <input class="search" type="text" placeholder="Find vessels by name or ID"
+                        style="width: 350px; margin-right: 10px;">
+                    <i class='bx bx-filter-alt fitter-icon d-flex align-items-center'></i>
+                </div>
+            </div>
+
+            <tr class="space-blank">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="table-header">
+                <th class="checke"> <input type="checkbox"> </th>
+                <th>Vessel Name</th>
+                <th>Vessel ID</th>
+                <th>Status</th>
+                <th>Port of Departure</th>
+                <th>Departure Date</th>
+                <th>Port of Arrival</th>
+                <th>ETA</th>
+                <th>Current Location</th>
+                <th>Captain Name</th>
+                <th></th>
+            </tr>
+
+            <tbody class="table-body">
+                <tr>
+                    <td class="checke"> <input type="checkbox"> </td>
+                    <td>Atlantic Voyager</td>
+                    <td>1234567</td>
+                    <td class="status"> <button>IN TRANSIT</button> </td>
+                    <td>New York,USA</td>
+                    <td>21 Nov, 9:00 AM</td>
+                    <td>Liverpool, UK</td>
+                    <td>24 Nov, 12:30 PM</td>
+                    <td>Atlantic Ocean</td>
+                    <td>
+                        <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="versel-logo">
+                        John Smith
+                    </td>
+                    <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
+
+                </tr>
+                <tr>
+                    <td class="checke"> <input type="checkbox"> </td>
+                    <td>Atlantic Voyager</td>
+                    <td>1234567</td>
+                    <td class="status docked"> <button>DOCKED</button> </td>
+                    <td>New York, USA</td>
+                    <td>21 Nov, 9:00 AM</td>
+                    <td>Liverpool, UK</td>
+                    <td>24 Nov, 12:30 PM</td>
+                    <td>Atlantic Ocean</td>
+                    <td>
+                        <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="versel-logo">
+                        John Smithlll
+                    </td>
+                    <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
+
+                </tr>
+                <tr>
+                    <td class="checke"> <input type="checkbox"> </td>
+                    <td>Atlantic Voyager</td>
+                    <td>1234567</td>
+                    <td class="status idle"> <button>IDLE</button> </td>
+                    <td>New York, USA</td>
+                    <td>21 Nov, 9:00 AM</td>
+                    <td>Liverpool, UK</td>
+                    <td>24 Nov, 12:30 PM</td>
+                    <td>Atlantic Ocean</td>
+                    <td>
+                        <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="versel-logo">
+                        John Smithlll
+                    </td>
+                    <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
+
+                </tr>
+                <tr>
+                    <td class="checke"> <input type="checkbox"> </td>
+                    <td>Atlantic Voyager</td>
+                    <td>1234567</td>
+                    <td class="status active"> <button>ACTIVE</button> </td>
+                    <td>New York, USA</td>
+                    <td>21 Nov, 9:00 AM</td>
+                    <td>Liverpool, UK</td>
+                    <td>24 Nov, 12:30 PM</td>
+                    <td>Atlantic Ocean</td>
+                    <td>
+                        <img class="rounded-circle me-1" src="assets/img/avatar.jpg" width="28" alt="versel-logo">
+                        John Smithlll
+                    </td>
+                    <td><i class='bx bx-dots-vertical-rounded dots'></i></td>
+
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="pagination d-flex justify-content-between">
+            <p class="pagination-text">Showing 1 to 5 of 57 entries</p>
+            <div class="next-prev d-flex gap-2 align-items-center">
+                <i class='bx bx-chevron-left d-flex align-items-center'></i>
+                <button class="active-next">1</button>
+                <button>2</button>
+                <button>3</button>
+                <i class='bx bx-chevron-right d-flex align-items-center'></i>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+</body>
+
+</html>
