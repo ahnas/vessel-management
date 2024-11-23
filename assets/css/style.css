@@ -12,7 +12,7 @@ body {
 .dashboard-heading {
     font-size: 20px;
     font-weight: 600;
-    padding: 20px 0;
+    padding: 20px 0px 15px 0px;
 }
 
 .custom-padding {
@@ -157,12 +157,10 @@ body {
     font-size: 13px;
     font-weight: 400;
     color: #818DB4;
-    margin-top: -5px;
     margin-bottom: 20px;
 }
 
 .sub-header p span {
-
     font-weight: 500;
     color: #2B3674;
 }
