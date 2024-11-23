@@ -366,3 +366,8 @@ input[type="checkbox"] {
 .div-shadow {
     box-shadow: 0px 0px 48px -8px #274C7738;
 }
+
+.data-push {
+    min-height: 30vh;
+    background: #fff;
+}
