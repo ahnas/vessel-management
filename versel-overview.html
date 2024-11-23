@@ -10,21 +10,22 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href='https://unpkg.com/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
 
+
 </head>
 
 <body>
     <div class="container-fluid bg-white d-flex justify-content-between align-items-center custom-padding div-shadow">
         <div class="search-container">
             <i class='bx bx-search-alt search-icon'></i>
-            <input class="search" type="text" placeholder="Search for vessels, crew, or cargo...">
+            <input class="search" type="text" placeholder="Search for vessels, crew, or cargo..." id="search-input">
         </div>
 
         <div class="user-container pe-2 ">
-            <div class=" position-relative">
+            <div class="position-relative">
                 <i class='bx bx-bell'></i>
                 <span class="notification-dot position-absolute"></span>
             </div>
-            <img class="rounded-circle img-avatar" src="assets/img/avatar.jpg" width="36" alt="versel-logo">
+            <img class="rounded-circle img-avatar" src="assets/img/avatar.jpg" width="36" alt="vessel-logo">
             Eddard Stark
             <i class='bx bx-chevron-down'></i>
         </div>
@@ -53,7 +54,7 @@
             </div>
             <div class="position-relative d-flex">
                 <i class='bx bx-search-alt search-icon position-absolute'></i>
-                <input class="search" type="text" placeholder="Find vessels by name or ID"
+                <input class="search" type="text" placeholder="Find vessels by name or ID" id="search-filter"
                     style="width: 350px; margin-right: 10px;">
                 <i class='bx bx-filter-alt fitter-icon d-flex align-items-center'></i>
             </div>
@@ -108,41 +109,41 @@
                 class: ''
             },
             {
-                name: 'Atlantic Voyager',
-                id: '1234567',
+                name: 'Pacific Explorer',
+                id: '2345678',
                 status: 'DOCKED',
-                departurePort: 'New York, USA',
-                departureDate: '21 Nov, 9:00 AM',
-                arrivalPort: 'Liverpool, UK',
-                eta: '24 Nov, 12:30 PM',
-                location: 'Atlantic Ocean',
-                captain: 'John Smith',
+                departurePort: 'San Francisco, USA',
+                departureDate: '20 Nov, 10:00 AM',
+                arrivalPort: 'Tokyo, Japan',
+                eta: '28 Nov, 3:00 PM',
+                location: 'Pacific Ocean',
+                captain: 'Jane Doe',
                 avatar: 'assets/img/avatar.jpg',
                 class: 'docked'
             },
             {
-                name: 'Atlantic Voyager',
-                id: '1234567',
+                name: 'Southern Star',
+                id: '3456789',
                 status: 'IDLE',
-                departurePort: 'New York, USA',
-                departureDate: '21 Nov, 9:00 AM',
-                arrivalPort: 'Liverpool, UK',
-                eta: '24 Nov, 12:30 PM',
-                location: 'Atlantic Ocean',
-                captain: 'John Smith',
+                departurePort: 'Miami, USA',
+                departureDate: '19 Nov, 8:00 AM',
+                arrivalPort: 'Havana, Cuba',
+                eta: '22 Nov, 1:00 PM',
+                location: 'Caribbean Sea',
+                captain: 'James Bond',
                 avatar: 'assets/img/avatar.jpg',
                 class: 'idle'
             },
             {
-                name: 'Atlantic Voyager',
-                id: '1234567',
+                name: 'Northern Light',
+                id: '4567890',
                 status: 'ACTIVE',
-                departurePort: 'New York, USA',
-                departureDate: '21 Nov, 9:00 AM',
-                arrivalPort: 'Liverpool, UK',
-                eta: '24 Nov, 12:30 PM',
-                location: 'Atlantic Ocean',
-                captain: 'John Smith',
+                departurePort: 'London, UK',
+                departureDate: '18 Nov, 7:00 AM',
+                arrivalPort: 'Newcastle, UK',
+                eta: '21 Nov, 5:00 PM',
+                location: 'North Sea',
+                captain: 'Anna Taylor',
                 avatar: 'assets/img/avatar.jpg',
                 class: 'active'
             }
@@ -150,6 +151,7 @@
 
         function populateVesselTable(data) {
             const tableBody = document.getElementById('vessel-table-body');
+            tableBody.innerHTML = '';
             data.forEach(vessel => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -168,9 +170,18 @@
                 tableBody.appendChild(row);
             });
         }
-        populateVesselTable(vessels);
-    </script>
 
+        populateVesselTable(vessels);
+
+        const searchInput = document.getElementById('search-filter');
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredVessels = vessels.filter(vessel =>
+                vessel.name.toLowerCase().includes(searchTerm) || vessel.id.includes(searchTerm)
+            );
+            populateVesselTable(filteredVessels);
+        });
+    </script>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery-3.7.1.min.js"></script>
