@@ -190,18 +190,10 @@ body {
 }
 
 
-.table-btn {
-    font-size: 12px;
-    font-weight: 600;
-    background: #3870FF;
-    color: #fff;
-    padding: 0px 15px;
-    border: none;
-}
-
 .table-btns {
     color: #2B3674;
     background: #F1F5FF;
+    border-radius: 5px;
     border: none;
     padding: 0px 15px;
     font-size: 12px;
@@ -211,6 +203,11 @@ body {
 .table-rounded {
     border-radius: 5px;
     overflow: hidden;
+}
+
+.active-btn {
+    color: #fff;
+    background: #3870FF;
 }
 
 .fitter-icon {
@@ -371,6 +368,6 @@ input[type="checkbox"] {
 }
 
 .data-push {
-    min-height: 30vh;
+    min-height: 10vh;
     background: #fff;
 }

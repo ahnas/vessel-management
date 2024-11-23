@@ -46,11 +46,11 @@
     <div class="container-fluid custom-padding div-shadow">
         <div class="custom-padding-tbh d-flex justify-content-between table-responsive">
             <div class="d-flex table-rounded" style="background: #F1F5FF;">
-                <button class="table-btn table-rounded">ALL</button>
-                <button class="table-btns">ACTIVE</button>
-                <button class="table-btns">DOCKED</button>
-                <button class="table-btns">IN TRANSIT</button>
-                <button class="table-btns rounded-end">IDLE</button>
+                <button class="table-btns table-rounded active-btn" data-status="all">ALL</button>
+                <button class="table-btns" data-status="ACTIVE">ACTIVE</button>
+                <button class="table-btns" data-status="DOCKED">DOCKED</button>
+                <button class="table-btns" data-status="IN TRANSIT">IN TRANSIT</button>
+                <button class="table-btns rounded-end" data-status="IDLE">IDLE</button>
             </div>
             <div class="position-relative d-flex">
                 <i class='bx bx-search-alt search-icon position-absolute'></i>
@@ -95,6 +95,7 @@
 
     <script>
         const vessels = [
+
             {
                 name: 'Atlantic Voyager',
                 id: '1234567',
@@ -136,7 +137,60 @@
             },
             {
                 name: 'Northern Light',
-                id: '4567890',
+                id: '84567890',
+                status: 'ACTIVE',
+                departurePort: 'London, UK',
+                departureDate: '18 Nov, 7:00 AM',
+                arrivalPort: 'Newcastle, UK',
+                eta: '21 Nov, 5:00 PM',
+                location: 'North Sea',
+                captain: 'Anna Taylor',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'active'
+            },
+
+            {
+                name: 'Atlantic Voyager',
+                id: '81234567',
+                status: 'IN TRANSIT',
+                departurePort: 'New York, USA',
+                departureDate: '21 Nov, 9:00 AM',
+                arrivalPort: 'Liverpool, UK',
+                eta: '24 Nov, 12:30 PM',
+                location: 'Atlantic Ocean',
+                captain: 'John Smith',
+                avatar: 'assets/img/avatar.jpg',
+                class: ''
+            },
+            {
+                name: 'Pacific Explorer',
+                id: '23845678',
+                status: 'DOCKED',
+                departurePort: 'San Francisco, USA',
+                departureDate: '20 Nov, 10:00 AM',
+                arrivalPort: 'Tokyo, Japan',
+                eta: '28 Nov, 3:00 PM',
+                location: 'Pacific Ocean',
+                captain: 'Jane Doe',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'docked'
+            },
+            {
+                name: 'Southern Star',
+                id: '34856789',
+                status: 'IDLE',
+                departurePort: 'Miami, USA',
+                departureDate: '19 Nov, 8:00 AM',
+                arrivalPort: 'Havana, Cuba',
+                eta: '22 Nov, 1:00 PM',
+                location: 'Caribbean Sea',
+                captain: 'James Bond',
+                avatar: 'assets/img/avatar.jpg',
+                class: 'idle'
+            },
+            {
+                name: 'Northern Light',
+                id: '45867890',
                 status: 'ACTIVE',
                 departurePort: 'London, UK',
                 departureDate: '18 Nov, 7:00 AM',
@@ -147,6 +201,7 @@
                 avatar: 'assets/img/avatar.jpg',
                 class: 'active'
             }
+
         ];
 
         function populateVesselTable(data) {
@@ -171,8 +226,8 @@
             });
         }
 
+        // Search Functionality
         populateVesselTable(vessels);
-
         const searchInput = document.getElementById('search-filter');
         searchInput.addEventListener('input', function () {
             const searchTerm = searchInput.value.toLowerCase();
@@ -181,6 +236,30 @@
             );
             populateVesselTable(filteredVessels);
         });
+
+
+        // Status filter functionality
+        const statusButtons = document.querySelectorAll('.table-btn, .table-btns');
+        statusButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                statusButtons.forEach(btn => btn.classList.remove('active-btn'));
+                this.classList.add('active-btn');
+                const status = this.getAttribute('data-status');
+                if (status === 'all') {
+                    filteredVessels = vessels; 
+                } else {
+                    filteredVessels = vessels.filter(vessel => vessel.status === status); 
+                }
+
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredBySearch = filteredVessels.filter(vessel =>
+                    vessel.name.toLowerCase().includes(searchTerm) || vessel.id.includes(searchTerm)
+                );
+                populateVesselTable(filteredBySearch);
+            });
+        });
+
+
     </script>
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
