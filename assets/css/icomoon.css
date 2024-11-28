@@ -1,0 +1,118 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?vicmgf');
+  src:  url('../fonts/icomoon.eot?vicmgf#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?vicmgf') format('truetype'),
+    url('../fonts/icomoon.woff?vicmgf') format('woff'),
+    url('../fonts/icomoon.svg?vicmgf#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Boat:before {
+  content: "\e900";
+}
+.icon-bx-bell:before {
+  content: "\e901";
+}
+.icon-bx-box:before {
+  content: "\e902";
+}
+.icon-bx-check:before {
+  content: "\e903";
+}
+.icon-bx-chevron-down:before {
+  content: "\e904";
+}
+.icon-bx-chevron-left:before {
+  content: "\e905";
+}
+.icon-bx-chevron-right:before {
+  content: "\e906";
+}
+.icon-bx-chevron-up:before {
+  content: "\e907";
+}
+.icon-bx-cloud-snow:before {
+  content: "\e908";
+}
+.icon-bx-cog:before {
+  content: "\e909";
+}
+.icon-bx-dots-vertical-rounded:before {
+  content: "\e90a";
+}
+.icon-bx-download:before {
+  content: "\e90b";
+}
+.icon-bx-edit-alt:before {
+  content: "\e90c";
+}
+.icon-bx-file:before {
+  content: "\e90d";
+}
+.icon-bx-filter-alt:before {
+  content: "\e90e";
+}
+.icon-bx-grid-alt:before {
+  content: "\e90f";
+}
+.icon-bx-group:before {
+  content: "\e910";
+}
+.icon-bx-log-out-circle:before {
+  content: "\e911";
+}
+.icon-bx-menu-alt-left:before {
+  content: "\e912";
+}
+.icon-bx-minus:before {
+  content: "\e913";
+}
+.icon-bx-plus:before {
+  content: "\e914";
+}
+.icon-bx-radio-circle:before {
+  content: "\e915";
+}
+.icon-bx-right-arrow-alt:before {
+  content: "\e916";
+}
+.icon-bx-search-alt:before {
+  content: "\e917";
+}
+.icon-bx-share:before {
+  content: "\e918";
+}
+.icon-bx-trash:before {
+  content: "\e919";
+}
+.icon-bx-trip:before {
+  content: "\e91a";
+}
+.icon-bx-user:before {
+  content: "\e91b";
+}
+.icon-bx-x:before {
+  content: "\e91c";
+}
+.icon-eye:before {
+  content: "\e91d";
+}
+.icon-map-pin:before {
+  content: "\e91e";
+}

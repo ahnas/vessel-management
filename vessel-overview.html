@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vessel Agency Management System</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.svg">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/icomoon.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Page Loader -->
+
+    <div class="loader" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+
+    <header class="page-topbar">
+        <div class="navbar-header">
+            <form class="search-box d-none d-md-block">
+                <div class="position-relative">
+                    <input type="text" class="form-control" placeholder="Search for vessels, crew, or cargo...">
+                    <span class="icon-bx-search-alt"></span>
+                </div>
+            </form>
+
+            <div class="navbar-brand-box d-block d-lg-none">
+                <a href="index.html" class="logo">
+                    <span class="logo-lg">
+                        <img src="assets/img/logo-b.svg" alt="">
+                    </span>
+                </a>
+                <button type="button" class="btn-expand vertical-menu-btn mob-menu" id="vertical-menu-btn">
+                    <i class="icon-bx-menu-alt-left mob-menu-icon"></i>
+                    <i class="icon-bx-x mob-close"></i>
+                </button>
+            </div>
+
+            <div class="d-flex header-right">
+                <div class="dropdown mob-search d-inline-block d-md-none ms-2">
+                    <button type="button" class="header-item" id="page-header-search-dropdown" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="icon-bx-search-alt"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                        aria-labelledby="page-header-search-dropdown">
+                        <form class="search-form">
+                            <div class="form-group m-0">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search ...">
+                                    <div class="input-group-append">
+                                        <button class="btn-custom btn-solid-blue" type="submit"><span
+                                                class="icon-bx-search-alt"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <button type="button" class="btn header-item alert-btn right-bar-toggle">
+                    <i class="icon-bx-bell alert-icon"></i>
+                    <span class="new-dot"></span>
+                </button>
+
+                <div class="dropdown d-inline-block profile-dropdown">
+                    <button type="button" class="btn header-item" id="page-header-user-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="rounded-circle header-profile-user" src="assets/img/user.svg" alt="Header Avatar">
+                        <span class="d-none d-xl-inline-block">Eddard Stark</span>
+                        <i class='icon-bx-chevron-down d-none d-xl-inline-block'></i>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="#"><i class='icon-bx-user'></i><span>Profile</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class='icon-bx-cog'></i><span>Settings</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class='icon-bx-log-out-circle'></i><span>Logout</span></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Sidebar Menu -->
+
+    <div class="vertical-menu">
+        <div data-simplebar class="h-100">
+            <div class="top-logo-btn">
+                <div class="navbar-brand-box">
+                    <a href="index.html" class="logo">
+                        <span class="logo-sm">
+                            <img src="assets/img/logo-sm.svg" alt="">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="assets/img/logo.svg" alt="">
+                        </span>
+                    </a>
+                </div>
+                <button type="button" class="btn btn-expand vertical-menu-btn" id="vertical-menu-btn">
+                    <i class="icon-bx-chevron-right"></i>
+                </button>
+            </div>
+
+            <div id="sidebar-menu">
+                <ul class="metismenu" id="side-menu">
+                    <li>
+                        <a href="index.html">
+                            <i class='icon-bx-grid-alt'></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="vessel-overview.html">
+                            <i class='icon-Boat'></i><span>Vessel Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow"><i class='icon-bx-group'></i><span>Crew
+                                Management</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="crew-details.html"><i class='icon-bx-minus'></i>Crew Details</a></li>
+                            <li><a href="crew-tracking.html"><i class='icon-bx-minus'></i>Crew Tracking</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="cargo-details.html">
+                            <i class='icon-bx-box'></i><span>Cargo Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);">
+                            <i class='icon-bx-cog'></i><span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="last-child">
+                        <a href="javascript: void(0);">
+                            <i class='icon-bx-log-out-circle'></i><span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Page Content -->
+
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title">
+                                <h3>Vessel Overview</h3>
+                                <ul class="breadcrumb">
+                                    <li><a href="index.html" class="breadcrumb-link">Dashboard</a></li>
+                                    <li class="breadcrumb-item">Vessel Management</li>
+                                    <li class="breadcrumb-current">Vessel Overview</li>
+                                </ul>
+                            </div>
+                            <div class="right-btns">
+                                <button class="btn-custom btn-outline"><i class="icon-bx-download"></i>Download</button>
+                                <button class="btn-custom btn-solid-blue" data-bs-toggle="modal"
+                                    data-bs-target="#addVesselModal"><i class="icon-bx-plus"></i>Add
+                                    Vessel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-table vessel-table">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-title-box">
+                                    <div class="table-tab">
+                                        <button class="table-btn btn-custom btn-solid-blue"
+                                            data-status="all">ALL</button>
+                                        <button class="table-btn btn-custom btn-light-darkblue"
+                                            data-status="ACTIVE">ACTIVE</button>
+                                        <button class="table-btn btn-custom btn-light-darkblue"
+                                            data-status="DOCKED">DOCKED</button>
+                                        <button class="table-btn btn-custom btn-light-darkblue"
+                                            data-status="IN TRANSIT">IN TRANSIT</button>
+                                        <button class="table-btn btn-custom btn-light-darkblue"
+                                            data-status="IDLE">IDLE</button>
+                                    </div>
+                                    <div class="card-right-btns">
+                                        <form class="search-box">
+                                            <div class="position-relative">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Find vessels by name or ID" id="search-filter">
+                                                <span class="icon-bx-search-alt"></span>
+                                            </div>
+                                        </form>
+                                        <div class="dropdown">
+                                            <button class="btn-custom btn-square btn-solid-blue dropdown-toggle"
+                                                type="button" id="filterDropdownButton" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="icon-bx-filter-alt"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end keep-open"
+                                                aria-labelledby="filterDropdownButton">
+                                                <li class="dropdown-item">
+                                                    <label for="statusVesselSelect" class="form-label">Status</label>
+                                                    <select id="statusVesselSelect" class="form-select">
+                                                        <option value="">Select Status</option>
+                                                        <option value="active">Active</option>
+                                                        <option value="docked">Docked</option>
+                                                        <option value="in_transit">In Transit</option>
+                                                        <option value="idle">Idle</option>
+                                                    </select>
+                                                </li>
+                                                <hr class="dropdown-divider">
+                                                <li class="dropdown-item">
+                                                    <label for="captainNameSelect" class="form-label">Captain's
+                                                        Name</label>
+                                                    <select id="captainNameSelect" class="form-select">
+                                                        <option value="">Select Captain</option>
+                                                        <option value="John Smith">John Smith</option>
+                                                        <option value="John Samuel">John Samuel</option>
+                                                        <option value="Michael Davis">Michael Davis</option>
+                                                        <option value="David Lee">David Lee</option>
+                                                    </select>
+                                                </li>
+                                                <hr class="dropdown-divider">
+                                                <li class="dropdown-item dropdown-btn">
+                                                    <button id="applyFilters"
+                                                        class="btn-custom btn-custom-sm btn-solid-blue">Apply
+                                                        Filters</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-container">
+                                            <tr class="table-header">
+                                                <th class="checkbox" id="checkall">
+                                                    <label class="checkbox">
+                                                        <input type="checkbox">
+                                                        <span></span>
+                                                    </label>
+                                                </th>
+                                                <th>Vessel Name</th>
+                                                <th>Vessel ID</th>
+                                                <th>Status</th>
+                                                <th>Port of Departure</th>
+                                                <th>Departure Date</th>
+                                                <th>Port of Arrival</th>
+                                                <th>ETA</th>
+                                                <th>Current Location</th>
+                                                <th>Captain Name</th>
+                                                <th></th>
+                                            </tr>
+                                            <tbody id="vessel-table-body"></tbody>
+                                        </table>
+                                    </div>
+                                    <div class="pagination">
+                                        <p class="pagination-text">Showing 1 to 5 of 13 entries</p>
+                                        <div class="next-prev">
+                                            <button id="prev-page"><i class="icon-bx-chevron-left"></i></button>
+                                            <div id="page-numbers" class="page-numbers"></div>
+                                            <button id="next-page"><i class="icon-bx-chevron-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Section -->
+
+    <div class="right-bar">
+        <div data-simplebar class="h-100">
+            <div class="rightbar-title d-flex align-items-center">
+                <h5><img src="assets/img/exclamation.svg" alt="">Alerts</h5>
+                <a href="javascript:void(0);" class="right-bar-toggle ms-auto">
+                    <i class='icon-bx-x noti-icon'></i>
+                </a>
+            </div>
+            <div class="right-bar-content">
+                <div class="alert-box alert-danger-sec">
+                    <div class="alert-heading">High priority</div>
+                    <div class="alert-list">
+                        <div class="alert-item">
+                            <p>Vessel ocean spirit has deviated from its planned route near the South Pacific.</p>
+                            <a href="javascript:void(0);" class="alert-link">Take Action<i
+                                    class="icon-bx-right-arrow-alt"></i></a>
+                            <a href="javascript:void(0);" class="alert-close"><i class="icon-bx-x"></i></a>
+                        </div>
+                        <div class="alert-item">
+                            <p>Vessel ocean spirit has deviated from its planned route near the South Pacific.</p>
+                            <a href="javascript:void(0);" class="alert-link">Take Action<i
+                                    class="icon-bx-right-arrow-alt"></i></a>
+                            <a href="javascript:void(0);" class="alert-close"><i class="icon-bx-x"></i></a>
+                        </div>
+                        <div class="alert-item">
+                            <p>Vessel ocean spirit has deviated from its planned route near the South Pacific.</p>
+                            <a href="javascript:void(0);" class="alert-link">Take Action<i
+                                    class="icon-bx-right-arrow-alt"></i></a>
+                            <a href="javascript:void(0);" class="alert-close"><i class="icon-bx-x"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-box alert-warning-sec">
+                    <div class="alert-heading">High priority</div>
+                    <div class="alert-list">
+                        <div class="alert-item">
+                            <p>Crew certifications for Vessel Titan are nearing expiration. Update immediately!</p>
+                            <a href="javascript:void(0);" class="alert-link">Take Action<i
+                                    class="icon-bx-right-arrow-alt"></i></a>
+                            <a href="javascript:void(0);" class="alert-close"><i class="icon-bx-x"></i></a>
+                        </div>
+                        <div class="alert-item">
+                            <p>Crew certifications for Vessel Titan are nearing expiration. Update immediately!</p>
+                            <a href="javascript:void(0);" class="alert-link">Take Action<i
+                                    class="icon-bx-right-arrow-alt"></i></a>
+                            <a href="javascript:void(0);" class="alert-close"><i class="icon-bx-x"></i></a>
+                        </div>
+                        <div class="alert-item">
+                            <p>Crew certifications for Vessel Titan are nearing expiration. Update immediately!</p>
+                            <a href="javascript:void(0);" class="alert-link">Take Action<i
+                                    class="icon-bx-right-arrow-alt"></i></a>
+                            <a href="javascript:void(0);" class="alert-close"><i class="icon-bx-x"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rightbar-footer">
+                <button class="btn-custom btn-alert btn-light-blue">Mark All as Read</button>
+                <button class="btn-custom btn-alert btn-solid-blue">View All</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add New Vessel Modal -->
+
+    <div class="modal fade" id="addVesselModal" tabindex="-1" aria-labelledby="addVesselModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addVesselModalLabel"><i class='icon-Boat btn-custom btn-square'></i>Add
+                        Vessel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addVesselForm">
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <label for="vesselName" class="form-label">Vessel Name</label>
+                                <input type="text" class="form-control" id="vesselName" placeholder="Enter vessel name"
+                                    required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="vesselID" class="form-label">Vessel ID</label>
+                                <input type="text" class="form-control" id="vesselID" placeholder="Enter vessel ID"
+                                    required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="status" class="form-label">Status</label>
+                                <select id="status" class="form-select" required>
+                                    <option value="" disabled selected>Select status</option>
+                                    <option value="active">Active</option>
+                                    <option value="docked">Docked</option>
+                                    <option value="in_transit">In Transit</option>
+                                    <option value="idle">Idle</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="departurePort" class="form-label">Port of Departure</label>
+                                <input type="text" class="form-control" id="departurePort"
+                                    placeholder="Enter port of departure" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="departureDate" class="form-label">Departure Date</label>
+                                <input type="datetime-local" class="form-control" id="departureDate" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="arrivalPort" class="form-label">Port of Arrival</label>
+                                <input type="text" class="form-control" id="arrivalPort"
+                                    placeholder="Enter port of arrival" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="eta" class="form-label">ETA</label>
+                                <input type="datetime-local" class="form-control" id="eta" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="currentLocation" class="form-label">Current Location</label>
+                                <input type="text" class="form-control" id="currentLocation"
+                                    placeholder="Enter current location" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="captainName" class="form-label">Captain's Name</label>
+                                <input type="text" class="form-control" id="captainName"
+                                    placeholder="Enter captain's name" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="captainImage" class="form-label">Captain's Image</label>
+                                <input type="file" class="form-control" id="captainImage" accept="image/*" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-custom btn-light-blue" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn-custom btn-solid-blue" id="saveVessel" data-bs-dismiss="modal">Save
+                        Vessel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/metisMenu.min.js"></script>
+    <script src="assets/js/vessel-datatable.js"></script>
+    <script src="assets/js/script.js"></script>
+
+    <script>
+        $(function () {
+            setTimeout(function () {
+                $("#loading").hide();
+            }, 500)
+
+        })
+
+        if ($(window).width() < 767) {
+            $('body').removeClass('sidebar-enable');
+        }
+    </script>
+
+</body>
+
+</html>
