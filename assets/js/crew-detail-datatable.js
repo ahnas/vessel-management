@@ -397,4 +397,30 @@ document.getElementById('applyFilters1').addEventListener('click', function () {
 });
 
 
+// Crew details card button hide and show
+
+document.addEventListener('DOMContentLoaded', function () {
+    const certificateBtn = document.getElementById('certificate-btn');
+    const assignmentBtn = document.getElementById('assignment-btn');
+    const pillsTab = document.getElementById('pills-tab');
+
+    const handleTabChange = () => {
+        const activeTab = document.querySelector('.nav-pills .btn-custom.active');
+        certificateBtn.style.display = 'none';
+        assignmentBtn.style.display = 'none';
+
+        if (activeTab.id === 'pills-certificate-tab') {
+            certificateBtn.style.display = 'flex';
+        } else if (activeTab.id === 'pills-assignment-tab') {
+            assignmentBtn.style.display = 'flex';
+        }
+    };
+
+    const tabButtons = pillsTab.querySelectorAll('.btn-custom');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', handleTabChange);
+    });
+
+    handleTabChange();
+});
 

@@ -364,12 +364,15 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="cargoID" class="form-label">Cargo ID</label>
                                 <input type="text" class="form-control" id="cargoID" placeholder="Enter Cargo ID"
-                                    required>
+                                    disabled>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="cargoType" class="form-label">Type</label>
-                                <input type="text" class="form-control" id="cargoType" placeholder="Enter Cargo Type"
-                                    required>
+                                <select class="form-select" id="cargoType" required>
+                                    <option value="Containerized">Containerized</option>
+                                    <option value="Liquid">Liquid</option>
+                                    <option value="Bulk">Bulk</option>
+                                </select>
                             </div>
                             <div class="col-lg-6 mb-3">
                                 <label for="weight" class="form-label">Weight (MT)</label>
@@ -393,9 +396,9 @@
                             <div class="col-lg-6 mb-3">
                                 <label for="status" class="form-label">Status</label>
                                 <select class="form-select" id="status" required>
-                                    <option>In Transit</option>
-                                    <option>Delivered</option>
-                                    <option>Pending</option>
+                                    <option value="IN TRANSIT">In Transit</option>
+                                    <option value="DELIVERED">Delivered</option>
+                                    <option value="PENDING">Pending</option>
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-3">
@@ -413,12 +416,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn-custom btn-light-blue" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn-custom btn-solid-blue" id="saveCargo" data-bs-dismiss="modal">Save
+                    <button onclick="saveCargo()" type="submit" class="btn-custom btn-solid-blue" id="saveCargo"
+                        data-bs-dismiss="modal">Save
                         Cargo</button>
                 </div>
             </div>
         </div>
     </div>
+
 
 
     <script src="assets/js/jquery.min.js"></script>
@@ -438,6 +443,7 @@
         if ($(window).width() < 767) {
             $('body').removeClass('sidebar-enable');
         }
+
     </script>
 
 </body>

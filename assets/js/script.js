@@ -76,66 +76,41 @@
         }
     ];
 
-    chartsData.forEach(chartInfo => {
-        const ctx = document.getElementById(chartInfo.elementId).getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: chartInfo.labels,
-                datasets: [{
-                    data: chartInfo.data,
-                    backgroundColor: chartInfo.backgroundColors,
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '60%',
-                plugins: {
-                    legend: { display: false }
-                }
-            }
-        });
+    // chartsData.forEach(chartInfo => {
+    //     const ctx = document.getElementById(chartInfo.elementId).getContext('2d');
+    //     const myChart = new Chart(ctx, {
+    //         type: 'doughnut',
+    //         data: {
+    //             labels: chartInfo.labels,
+    //             datasets: [{
+    //                 data: chartInfo.data,
+    //                 backgroundColor: chartInfo.backgroundColors,
+    //                 borderWidth: 0
+    //             }]
+    //         },
+    //         options: {
+    //             responsive: true,
+    //             maintainAspectRatio: false,
+    //             cutout: '60%',
+    //             plugins: {
+    //                 legend: { display: false }
+    //             }
+    //         }
+    //     });
 
-        const legendContainer = document.querySelector(chartInfo.legendContainer);
-        chartInfo.labels.forEach((label, index) => {
-            const legendItem = document.createElement('div');
-            legendItem.classList.add('legend-item');
-            legendItem.innerHTML = `
-                <div class="d-flex">
-                    <span class="legend-square" style="background-color:${chartInfo.backgroundColors[index]}"></span>
-                    ${label} 
-                </div>
-                <span class="legend-value">${myChart.data.datasets[0].data[index]}</span>`;
-            legendContainer.appendChild(legendItem);
-        });
-    });
+    //     const legendContainer = document.querySelector(chartInfo.legendContainer);
+    //     chartInfo.labels.forEach((label, index) => {
+    //         const legendItem = document.createElement('div');
+    //         legendItem.classList.add('legend-item');
+    //         legendItem.innerHTML = `
+    //             <div class="d-flex">
+    //                 <span class="legend-square" style="background-color:${chartInfo.backgroundColors[index]}"></span>
+    //                 ${label} 
+    //             </div>
+    //             <span class="legend-value">${myChart.data.datasets[0].data[index]}</span>`;
+    //         legendContainer.appendChild(legendItem);
+    //     });
+    // });
 };
 
-// Crew details card button hide and show
 
-document.addEventListener('DOMContentLoaded', function () {
-    const certificateBtn = document.getElementById('certificate-btn');
-    const assignmentBtn = document.getElementById('assignment-btn');
-    const pillsTab = document.getElementById('pills-tab');
-
-    const handleTabChange = () => {
-        const activeTab = document.querySelector('.nav-pills .btn-custom.active');
-        certificateBtn.style.display = 'none';
-        assignmentBtn.style.display = 'none';
-
-        if (activeTab.id === 'pills-certificate-tab') {
-            certificateBtn.style.display = 'flex';
-        } else if (activeTab.id === 'pills-assignment-tab') {
-            assignmentBtn.style.display = 'flex';
-        }
-    };
-
-    const tabButtons = pillsTab.querySelectorAll('.btn-custom');
-    tabButtons.forEach(button => {
-        button.addEventListener('click', handleTabChange);
-    });
-
-    handleTabChange();
-});

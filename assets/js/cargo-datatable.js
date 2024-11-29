@@ -1,4 +1,4 @@
-const cargo = [
+let cargo = JSON.parse(localStorage.getItem('cargo')) || [
     {
         id: 'CG001',
         description: 'Machinery Parts',
@@ -11,68 +11,7 @@ const cargo = [
         eta: '24 Nov 2024',
         class: 'badge-blue'
     },
-    {
-        id: 'CG002',
-        description: 'Crude Oil',
-        type: 'Liquid',
-        weight: '500',
-        vesselName: 'Oceanic Star',
-        origin: 'Kuwait',
-        destination: 'Rotterdam',
-        status: 'PENDING',
-        eta: '-',
-        class: 'badge-orange'
-    },
-    {
-        id: 'CG003',
-        description: 'Grain',
-        type: 'Bulk',
-        weight: '200',
-        vesselName: 'Southern Navigator',
-        origin: 'Buenos Aires',
-        destination: 'Lagos',
-        status: 'DELIVERED',
-        eta: '18 Nov 2024',
-        class: 'badge-green'
-    },
-    {
-        id: 'CG004',
-        description: 'Electronics',
-        type: 'Containerized',
-        weight: '100',
-        vesselName: 'Pacific Explorer',
-        origin: 'Shanghai',
-        destination: 'Sydney',
-        status: 'IN TRANSIT',
-        eta: '30 Nov 2024',
-        class: 'badge-blue'
-    },
-    {
-        id: 'CG005',
-        description: 'Pharmaceuticals',
-        type: 'Containerized',
-        weight: '50',
-        vesselName: 'Arctic Explorer',
-        origin: 'Mumbai',
-        destination: 'Cape Town',
-        status: 'IN TRANSIT',
-        eta: '28 Nov 2024',
-        class: 'badge-blue'
-    },
-    {
-        id: 'CG003',
-        description: 'Grain',
-        type: 'Bulk',
-        weight: '200',
-        vesselName: 'Southern Navigator',
-        origin: 'Buenos Aires',
-        destination: 'Lagos',
-        status: 'DELIVERED',
-        eta: '18 Nov 2024',
-        class: 'badge-green'
-    },
 ];
-
 
 
 let currentPage = 1;
@@ -83,8 +22,6 @@ function updatePaginationText(startIndex, endIndex, totalCargo) {
     const paginationText = document.querySelector('.pagination-text');
     paginationText.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalCargo} entries`;
 }
-
-
 
 function populateCargoTable(data) {
     const tableBody = document.getElementById('cargo-table-body');
@@ -125,7 +62,7 @@ function populateCargoTable(data) {
                     <hr class="dropdown-divider">
                     <li><a class="dropdown-item" href="#"><i class="icon-bx-edit-alt"></i>Edit</a></li>
                     <hr class="dropdown-divider">
-                    <li><a class="dropdown-item" href="#"><i class="icon-bx-trash"></i>Delete</a></li>
+                    <li onclick="deleteCargo('${cargo.id}')"><a class="dropdown-item" href="#"><i class="icon-bx-trash"></i>Delete</a></li>
                 </ul>
             </div>
         </td>`;
@@ -136,8 +73,6 @@ function populateCargoTable(data) {
     updatePagination(totalPages);
     updatePaginationText(startIndex, endIndex, data.length);
 }
-
-
 
 function updatePagination(totalPages) {
     const pageNumbersContainer = document.getElementById('page-numbers');
@@ -224,9 +159,7 @@ document.getElementById('checkall').addEventListener('change', function () {
     });
 });
 
-
 // Apply Filters
-
 document.getElementById('applyFilters').addEventListener('click', function () {
     const cargoTypeFilter = document.getElementById('cargoTypeSelect').value.trim();
     const shipmentStatusFilter = document.getElementById('shipmentStatusSelect').value.trim();
@@ -253,3 +186,84 @@ document.getElementById('applyFilters').addEventListener('click', function () {
 });
 
 
+
+document.getElementById('addCargoModal').addEventListener('show.bs.modal', function () {
+    const cargoID = generateCargoID();
+    document.getElementById('cargoID').value = cargoID;
+});
+
+function saveCargo() {
+
+    const cargoID = generateCargoID();
+
+    const etaValue = document.getElementById('eta').value;
+    const formattedEta = formatDate(etaValue);
+
+    const cargoItem = {
+        id: cargoID,
+        description: document.getElementById('description').value,
+        type: document.getElementById('cargoType').value,
+        weight: document.getElementById('weight').value,
+        vesselName: document.getElementById('vesselName').value,
+        origin: document.getElementById('origin').value,
+        destination: document.getElementById('destination').value,
+        status: document.getElementById('status').value,
+        eta: formattedEta,
+        class: getStatusClass(document.getElementById('status').value)
+    };
+
+    cargo.push(cargoItem);
+    localStorage.setItem('cargo', JSON.stringify(cargo));
+    updateLastCargoID(cargoID);
+
+    console.log('Cargo saved:', cargoItem);
+    filteredCargo = cargo;
+    currentPage = 1;
+    populateCargoTable(filteredCargo);
+}
+
+function generateCargoID() {
+    let lastCargoID = localStorage.getItem('lastCargoID');
+    let newCargoID;
+
+    if (!lastCargoID) {
+        newCargoID = 'CG1000';
+    } else {
+        let number = parseInt(lastCargoID.replace('CG', ''));
+        newCargoID = 'CG' + (number + 1);
+    }
+    return newCargoID;
+}
+
+function updateLastCargoID(newCargoID) {
+    localStorage.setItem('lastCargoID', newCargoID);
+}
+
+function getStatusClass(status) {
+    switch (status) {
+        case 'PENDING':
+            return 'badge-orange';
+        case 'DELIVERED':
+            return 'badge-green';
+        case 'IN TRANSIT':
+            return 'badge-blue';
+    }
+}
+
+function deleteCargo(id) {
+    const index = cargo.findIndex(detail => detail.id === id);
+    if (index !== -1) {
+        cargo.splice(index, 1);
+        localStorage.setItem('cargo', JSON.stringify(cargo));
+        filteredCargo = cargo;
+        currentPage = 1;
+        populateCargoTable(filteredCargo);
+    }
+}
+
+function formatDate(etaValue) {
+    if (!etaValue) return '';
+    const date = new Date(etaValue);
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+}
