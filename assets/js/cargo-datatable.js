@@ -60,7 +60,7 @@ function populateCargoTable(data) {
                         </a>
                     </li>
                     <hr class="dropdown-divider">
-                    <li><a class="dropdown-item" href="#"><i class="icon-bx-edit-alt"></i>Edit</a></li>
+                    <li onclick="openEditCargoModal('${cargo.id}')" ><a class="dropdown-item" href="#"><i class="icon-bx-edit-alt"></i>Edit</a></li>
                     <hr class="dropdown-divider">
                     <li onclick="deleteCargo('${cargo.id}')"><a class="dropdown-item" href="#"><i class="icon-bx-trash"></i>Delete</a></li>
                 </ul>
@@ -187,15 +187,41 @@ document.getElementById('applyFilters').addEventListener('click', function () {
 
 
 
-document.getElementById('addCargoModal').addEventListener('show.bs.modal', function () {
-    const cargoID = generateCargoID();
-    document.getElementById('cargoID').value = cargoID;
-});
+function openAddCargoModal() {
+    document.getElementById('cargoForm').reset();
+    const newCargoID = generateCargoID();
+    document.getElementById('cargoID').value = newCargoID;
+    document.getElementById('cargoID').disabled = true;
+    document.getElementById('modal-title-sub').innerText = "Add New Cargo";
+}
+
+function openEditCargoModal(cargoID) {
+    const cargoItem = cargo.find(item => item.id === cargoID);
+    console.log(cargoItem);
+
+    if (cargoItem) {
+        const etaString = cargoItem.eta;
+        const isoFormattedEta = convertToISO(etaString);
+
+        document.getElementById('modal-title-sub').innerText = "Edit Cargo";
+        const myModal = new bootstrap.Modal(document.getElementById('addCargoModal'));
+        myModal.show();
+        document.getElementById('cargoID').value = cargoItem.id;
+        document.getElementById('description').value = cargoItem.description;
+        document.getElementById('cargoType').value = cargoItem.type;
+        document.getElementById('weight').value = cargoItem.weight;
+        document.getElementById('vesselName').value = cargoItem.vesselName;
+        document.getElementById('origin').value = cargoItem.origin;
+        document.getElementById('destination').value = cargoItem.destination;
+        document.getElementById('status').value = cargoItem.status;
+        document.getElementById('eta').value = isoFormattedEta;
+        document.getElementById('cargoID').disabled = true;
+    }
+}
+
 
 function saveCargo() {
-
-    const cargoID = generateCargoID();
-
+    const cargoID = document.getElementById('cargoID').value;
     const etaValue = document.getElementById('eta').value;
     const formattedEta = formatDate(etaValue);
 
@@ -211,27 +237,24 @@ function saveCargo() {
         eta: formattedEta,
         class: getStatusClass(document.getElementById('status').value)
     };
-
-    cargo.push(cargoItem);
+    const existingCargoIndex = cargo.findIndex(item => item.id === cargoID);
+    if (existingCargoIndex !== -1) {
+        cargo[existingCargoIndex] = cargoItem;
+    } else {
+        cargo.push(cargoItem);
+        updateLastCargoID(generateCargoID());
+    }
     localStorage.setItem('cargo', JSON.stringify(cargo));
-    updateLastCargoID(cargoID);
-
-    console.log('Cargo saved:', cargoItem);
     filteredCargo = cargo;
     currentPage = 1;
     populateCargoTable(filteredCargo);
+    const myModal = new bootstrap.Modal(document.getElementById('addCargoModal'));
+    myModal.hide();
 }
 
 function generateCargoID() {
     let lastCargoID = localStorage.getItem('lastCargoID');
-    let newCargoID;
-
-    if (!lastCargoID) {
-        newCargoID = 'CG1000';
-    } else {
-        let number = parseInt(lastCargoID.replace('CG', ''));
-        newCargoID = 'CG' + (number + 1);
-    }
+    let newCargoID = lastCargoID ? 'CG' + (parseInt(lastCargoID.replace('CG', '')) + 1) : 'CG1000';
     return newCargoID;
 }
 
@@ -262,8 +285,30 @@ function deleteCargo(id) {
 }
 
 function formatDate(etaValue) {
+    console.log(etaValue);
     if (!etaValue) return '';
     const date = new Date(etaValue);
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return date.toLocaleDateString('en-GB', options);
+    const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-GB', dateOptions);
+    const timeOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+    };
+    const formattedTime = date.toLocaleTimeString('en-GB', timeOptions);
+    return `${formattedDate} ${formattedTime}`;
+}
+
+function convertToISO(etaString) {
+    const date = new Date(etaString);
+    if (isNaN(date)) {
+        console.error('Invalid date format');
+        return '';
+    }
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
 }

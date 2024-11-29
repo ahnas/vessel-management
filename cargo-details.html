@@ -172,7 +172,8 @@
                             <div class="right-btns">
                                 <button class="btn-custom btn-outline"><i class="icon-bx-download"></i>Download</button>
                                 <button class="btn-custom btn-solid-blue" data-bs-toggle="modal"
-                                    data-bs-target="#addCargoModal"><i class="icon-bx-plus"></i>Add
+                                    data-bs-target="#addCargoModal" onclick="openAddCargoModal()"><i
+                                        class="icon-bx-plus"></i>Add
                                     New Cargo</button>
                             </div>
                         </div>
@@ -354,7 +355,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addCargoModalLabel">
-                        <i class="icon-bx-box btn-custom btn-square"></i>Add New Cargo
+                        <i class="icon-bx-box btn-custom btn-square"></i><span id="modal-title-sub">Add New Cargo</span>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
